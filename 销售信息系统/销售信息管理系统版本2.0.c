@@ -46,8 +46,6 @@ void sort1(struct Salesman sal[]);
 void sort2(struct Salesman sal[]);
 //11.保存销售信息
 void save(struct Salesman stu[]);
-//12.定义文件输入
-void open();
 //程序入口
 void main() {
 	//格式化代码快捷键:ctrl+K+F
@@ -480,41 +478,4 @@ void save(struct Salesman sal[]) {
 	}
 	fclose(file);
 	printf("保存成功\n");
-}
-//12.定义文件输入
-void open()
-{
-	FILE *fp;
-	struct Salesman sal1[2000];
-	int a = 0, b = 0, tim = 0;
-	char str[10];
-	fp = fopen("c:\\xioashouxinxi.txt", "r");
-	if (fp = NULL) {
-		printf("文件打开错误\n");
-		exit(0);
-	}
-	else {
-		printf("\n");
-		while (!feof(fp)) {
-			fscanf(fp, "%d/%d %d ", &sal1[a].date.mon, &sal1[a].date.mday, &sal1[a].num);
-			while (tim < 5) {
-				fscanf(fp, "   %d ", &b);
-				fscanf(fp, "    %d ", &sal1[a].produtionNum[b]);
-				fgets(fp, "      ", str);
-				tim++;
-			}
-			printf("%d/%d\t", sal1[a].date.mon, sal1[a].date.mday);
-			printf("%d\t", sal1[a].num);
-			tim = 0;
-			while (tim < 5)
-			{
-				printf("   %d\t", tim);
-				printf("    %d\t\n", sal1[a].produtionNum[tim]);
-				printf("\t\t\t\t\t");
-				tim++;
-			}
-			a++;
-		}
-	}
-	fclose(fp);
 }
