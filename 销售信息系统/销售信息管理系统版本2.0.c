@@ -54,7 +54,7 @@ void main() {
 	int result;
 	char choice1 = ' ';
 	int choice2, month;
-	char title[] = "\t\t\t*********欢迎进入销售信息管理系统！********\n\n\n";
+	char title[] = "\t\t\t\t\t*********欢迎进入销售信息管理系统！********\n\n\n";
 	//1:初始化窗口和界面
 	initWindow(title);
 	memset(sal->produtionNum, 0, sizeof(sal->produtionNum));
@@ -72,7 +72,7 @@ void main() {
 				while (1)
 				{
 					addSales(sal);//调用添加当日销售信息的函数
-					printf("是否继续录入学生信息(y/n)：");
+					printf("是否继续录入销售信息(y/n)：");
 					getchar();
 					scanf_s("%c", &choice1, 1);
 					if (choice1 == 'n') {
@@ -82,6 +82,7 @@ void main() {
 				break;
 			case 2: display(sal);//调用显示销售信息的函数
 				printf("\n");
+
 				break;
 			case 3:
 				find(sal);//调用查询信息的函数
@@ -132,9 +133,9 @@ void main() {
 //1:初始窗口和界面
 void initWindow(char *title) {
 	//设置窗口大小
-	system("mode con:cols=90 lines=200");
+	system("mode con:cols=110 lines=150");
 	//设置窗口字体的颜色
-	system("color 0");
+	system("color F0");
 	//循环输出标题（条件：）
 	while (*title != 0)
 	{
@@ -150,7 +151,7 @@ void initWindow(char *title) {
 }
 //2:初始化菜单
 void initMenu() {
-	printf("\t\t\t    =========销售信息管理系统=========\n");
+	printf("\t\t\t\t\t    =========销售信息管理系统=========\n");
 	printf("\t\t\t\t 1.录入当日销售信息\n");
 	printf("\t\t\t\t 2.显示销售信息\n");
 	printf("\t\t\t\t 3.根据销售员编号查询消息\n");
@@ -160,7 +161,7 @@ void initMenu() {
 	printf("\t\t\t\t 7.排序\n");
 	printf("\t\t\t\t 8.保存销售信息(请在保存之前在C盘下直接建立文件xiaoshouxinxi.txt)\n");
 	printf("\t\t\t\t 9.退出系统\n");
-	printf("\t\t\t    ==================================\n");
+	printf("\t\t\t\t\t   ==================================\n");
 }
 //3.定义时间函数
 //3.1定义day
