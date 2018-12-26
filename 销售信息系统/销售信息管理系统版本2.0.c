@@ -10,10 +10,10 @@ struct time {
 };
 //定义销售员结构体
 struct Salesman {
-	int num;
-	int dSales;
-	int produtionNum[5];
 	struct time date;
+	int num;
+	int produtionNum[5];
+	int dSales;
 };
 //定义数量
 int counts = 0;
@@ -45,7 +45,9 @@ void sort1(struct Salesman sal[]);
 //10.2按产品总销售额排序
 void sort2(struct Salesman sal[]);
 //11.保存销售信息
-void save(struct Salesman stu[]);
+void save(struct Salesman sal[]);
+//12.文件输入
+void open(struct Salesman sal[]);
 //程序入口
 void main() {
 	//格式化代码快捷键:ctrl+K+F
@@ -53,7 +55,7 @@ void main() {
 	struct Salesman sal[2000] = { 0,0 };
 	int result;
 	char choice1 = ' ';
-	int choice2, month;
+	int choice2, month, number;
 	char title[] = "\t\t\t\t\t*********欢迎进入销售信息管理系统！********\n\n\n";
 	//1:初始化窗口和界面
 	initWindow(title);
@@ -69,20 +71,34 @@ void main() {
 		if (result >= 1 && result <= 9) {
 			switch (result) {
 			case 1:
-				while (1)
-				{
-					addSales(sal);//调用添加当日销售信息的函数
-					printf("是否继续录入销售信息(y/n)：");
-					getchar();
-					scanf_s("%c", &choice1, 1);
-					if (choice1 == 'n') {
-						break;
+				printf("\t\t\t\t请选择输入信息模式\n");
+				printf("\t\t\t\t 1.文件输入(请在d盘下创建shuru.txt)\n");
+				printf("\t\t\t\t 2.标准输入\n");
+				printf("\t\t\t\t 3.退出模式\n");
+				scanf_s("%d", &choice2);
+				if ((choice2 == 1) || (choice2 == 2))
+					if (choice2 == 1)
+					{
+						printf("请输入共有多少条数据：");
+						scanf("%d", &number);
+						open(sal, number);
+						printf("输入完成：");
 					}
-				}
+					else while (1)
+					{
+						addSales(sal);//调用添加当日销售信息的函数
+						printf("是否继续录入销售信息(y/n)：");
+						getchar();
+						scanf_s("%c", &choice1, 1);
+						if (choice1 == 'n') {
+							break;
+						}
+					}
+				else break;
 				break;
-			case 2: display(sal);//调用显示销售信息的函数
+			case 2: 
+				display(sal);//调用显示销售信息的函数
 				printf("\n");
-
 				break;
 			case 3:
 				find(sal);//调用查询信息的函数
@@ -159,7 +175,7 @@ void initMenu() {
 	printf("\t\t\t\t 5.计算月每人销售额\n");
 	printf("\t\t\t\t 6.计算每种产品总销售额\n");
 	printf("\t\t\t\t 7.排序\n");
-	printf("\t\t\t\t 8.保存销售信息(请在保存之前在C盘下直接建立文件xiaoshouxinxi.txt)\n");
+	printf("\t\t\t\t 8.保存销售信息(请在保存之前在d盘下创建shuchu.txt)\n");
 	printf("\t\t\t\t 9.退出系统\n");
 	printf("\t\t\t\t\t   ==================================\n");
 }
@@ -399,25 +415,25 @@ void sort1(struct Salesman sal[])
 			}
 			t++;
 		}
-	}
-	printf("按销售额对销售员进行排序（降序）结果：\n");
-	for (i = 0; i < 3; i++)
-	{
-		k = i;
-		for (j = i; j < 4; j++)
+		printf("按销售额对销售员进行排序（降序）结果：\n");
+		for (i = 0; i < 3; i++)
 		{
-			if (num[k].sales < num[j].sales) k = j;
+			k = i;
+			for (j = i; j < 4; j++)
+			{
+				if (num[k].sales < num[j].sales) k = j;
+			}
+			t = num[i].sales;
+			t1 = num[i].num;
+			num[i].sales = num[k].sales;
+			num[i].num = num[k].num;
+			num[k].sales = t;
+			num[k].num = t1;
 		}
-		t = num[i].sales;
-		t1 = num[i].num;
-		num[i].sales = num[k].sales;
-		num[i].num = num[k].num;
-		num[k].sales = t;
-		num[k].num = t1;
-	}
-	for (i = 0; i < 4; i++)
-	{
-		printf("%d\n", num[i].num + 1);
+		for (i = 0; i < 4; i++)
+		{
+			printf("%d\n", num[i].num + 1);
+		}
 	}
 }
 //10.2按产品总销售额排序
@@ -460,7 +476,7 @@ void sort2(struct Salesman sal[])
 void save(struct Salesman sal[]) {
 	int i = 0, t;
 	FILE *file;
-	file = fopen("c:\\xiaoshouxinxi.txt", "ab");
+	file = fopen("d:\\xiaoshouxinxi.txt", "ab");
 	fprintf(file, "时间\t销售员编号\t产品编号\t销售额\r\n");
 	printf("\r\n");
 	while (i < counts) {
@@ -479,4 +495,10 @@ void save(struct Salesman sal[]) {
 	}
 	fclose(file);
 	printf("保存成功\n");
+}
+//12.文件输入
+void open(struct Salesman sal[],int number) {
+	FILE *fp;
+	fp = fopen("d:\\xioashouxinxi.txt", "r");
+	fread(sal, sizeof(struct Salesman), number, fp);
 }
