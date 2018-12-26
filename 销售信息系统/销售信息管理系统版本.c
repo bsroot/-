@@ -206,6 +206,7 @@ int displaymonth()
 void addSales(struct Salesman sal[])
 {
 	int t = 0, num;
+	char choice;
 	while (1) {
 		printf("\n请输入要插入的销售员编号(1-4号)：");
 		scanf_s("%d", &sal[counts].num);
@@ -236,6 +237,11 @@ void addSales(struct Salesman sal[])
 				printf("输入有误！");
 			else break;
 		}
+		printf("是否退出输入（y/n）：\n");
+		getchar();
+		choice=getchar();
+		if (choice == 'y')
+			break;
 		t++;
 	}
 	printf("信息已经录入系统！\n");
@@ -481,13 +487,15 @@ void save(struct Salesman sal[]) {
 	printf("\r\n");
 	while (i < counts) {
 		fprintf(file, "%d/%d\t", sal[i].date.mon, sal[i].date.mday);
-		fprintf(file, "                      %d\t", sal[i].num);
+		fprintf(file, "        %d\t\t", sal[i].num);
 		t = 0;
 		while (t < 5)
 		{
-			fprintf(file, "        %d\t", t);
-			fprintf(file, "   %d\t\r\n", sal[i].produtionNum[t]);
-			fprintf(file, "    \t\t\t");
+			if (sal[i].produtionNum[t] != 0) {
+				fprintf(file, "%d\t", t+1);
+				fprintf(file, "  %d\r\n", sal[i].produtionNum[t]);
+			}
+				fprintf(file, "    \t\t\t");
 			t++;
 		}
 		i++;
