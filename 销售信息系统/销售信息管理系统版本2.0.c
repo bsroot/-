@@ -45,7 +45,7 @@ void sort1(struct Salesman sal[]);
 //10.2按产品总销售额排序
 void sort2(struct Salesman sal[]);
 //11.保存销售信息
-void Save(struct Salesman stu[]);
+void save(struct Salesman stu[]);
 //12.定义文件输入
 void open();
 //程序入口
@@ -121,6 +121,7 @@ void main() {
 				}
 				break;
 			case 8:
+				save(sal);
 				break;
 			default:printf("谢谢使用！");
 
@@ -159,7 +160,7 @@ void initMenu() {
 	printf("\t\t\t\t 5.计算月每人销售额\n");
 	printf("\t\t\t\t 6.计算每种产品总销售额\n");
 	printf("\t\t\t\t 7.排序\n");
-	printf("\t\t\t\t 8.保存销售信息\n");
+	printf("\t\t\t\t 8.保存销售信息(请在保存之前在C盘下直接建立文件xiaoshouxinxi.txt)\n");
 	printf("\t\t\t\t 9.退出系统\n");
 	printf("\t\t\t    ==================================\n");
 }
@@ -457,28 +458,25 @@ void sort2(struct Salesman sal[])
 	}
 }
 //11.保存销售信息
-void Save(struct Salesman sal[]) {
-	//FILE *freopen(const char *filename,const char*mode,FILE *stream);
-	//stream 代表被重定向以后的流，包括输入流（stdin）、输出流（stdout);
+void save(struct Salesman sal[]) {
 	int i = 0, t;
 	FILE *file;
-	file = fopen("xiaoshouxinxi.txt", "ab");//打开一个文件即output.txt
-	//fprintf就是在文件中打印字符
-	fprintf(file, "\n时间\t销售员编号\t产品编号\t销售额\n");//打印到文件中
-	printf("\n");
+	file = fopen("c:\\xiaoshouxinxi.txt", "ab");
+	fprintf(file, "时间\t销售员编号\t产品编号\t销售额\r\n");
+	printf("\r\n");
 	while (i < counts) {
 		fprintf(file, "%d/%d\t", sal[i].date.mon, sal[i].date.mday);
-		fprintf(file, "%d\t", sal[i].num);
+		fprintf(file, "                      %d\t", sal[i].num);
 		t = 0;
 		while (t < 5)
 		{
-			fprintf(file, "   %d\t", t);
-			fprintf(file, "    %d\t\n", sal[i].produtionNum[t]);
-			fprintf(file, "\t\t\t\t\t");
+			fprintf(file, "        %d\t", t);
+			fprintf(file, "   %d\t\r\n", sal[i].produtionNum[t]);
+			fprintf(file, "    \t\t\t");
 			t++;
 		}
 		i++;
-		fprintf(file, "\n");
+		fprintf(file, "\r\n");
 	}
 	fclose(file);
 	printf("保存成功\n");
@@ -490,7 +488,7 @@ void open()
 	struct Salesman sal1[2000];
 	int a = 0, b = 0, tim = 0;
 	char str[10];
-	fp = fopen("xioashouxinxi.txt", "r");
+	fp = fopen("c:\\xioashouxinxi.txt", "r");
 	if (fp = NULL) {
 		printf("文件打开错误\n");
 		exit(0);
