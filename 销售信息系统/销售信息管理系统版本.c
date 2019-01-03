@@ -345,7 +345,7 @@ void del(struct Salesman sal[]) {
 	int i, j;
 	int delnum;
 	printf("请输入销售员编号\n");
-	//输入学号
+	//输入编号
 	scanf_s("%d", &delnum);
 	for (i = 0; i < counts; i++) {
 		if (sal[i].num == delnum)
@@ -356,7 +356,7 @@ void del(struct Salesman sal[]) {
 		}
 		break;
 	}
-	printf("删除成功！");//找到要删除学号的位置
+	printf("删除成功！");//找到要删除编号的位置
 }
 //8.计算月每人销售额
 void calculation1(struct Salesman sal[], int month)
